@@ -1,14 +1,20 @@
+'use client';
+
 import React from 'react';
 import {FilterCheckbox, Title} from "@/components/shared";
 import {Input} from "@/components/ui";
 import {RangeSlider} from "@/components/shared/range-slider";
 import {CheckboxFiltersGroup} from "@/components/shared/checkbox-filters-group";
+import {useFilterIngredients} from "@/hooks/useFilterIngredients";
 
 interface Props {
     className?: string;
 }
 
 export const Filters: React.FC<Props> = ({className}) => {
+    const { ingredients } = useFilterIngredients()
+    const items = ingredients.map(item=>({value: String(item.id), text: item.name}));
+
     return (
         <div className={className}>
             <Title text="Фильтрация" size="sm" className="mb-5 font-bold"/>
@@ -29,30 +35,11 @@ export const Filters: React.FC<Props> = ({className}) => {
                 <RangeSlider min={0} max={1000} step={10} value={[0, 1000]}/>
             </div>
 
-            <CheckboxFiltersGroup title="Ингридиенты" className="mt-5" limit={6} defaultItems={
-                [{text: "Сыный соус", value: "1"},
-            {text: "Моцарелла", value: "1"},
-            {text: "Чеснок", value: "1"},
-            {text: "Солёные огурчики", value: "1"},
-            {text: "Красный лук", value: "1"},
-            {text: "Томаты", value: "1"}
-           ]
-            }
-                                  items={
-                                      [{text: "Сыный соус", value: "1"},
-                                          {text: "Моцарелла", value: "1"},
-                                          {text: "Чеснок", value: "1"},
-                                          {text: "Солёные огурчики", value: "1"},
-                                          {text: "Красный лук", value: "1"},
-                                          {text: "Томаты", value: "1"},
-                                          {text: "Сыный соус", value: "1"},
-                                          {text: "Моцарелла", value: "1"},
-                                          {text: "Чеснок", value: "1"},
-                                          {text: "Солёные огурчики", value: "1"},
-                                          {text: "Красный лук", value: "1"},
-                                          {text: "Томаты", value: "1"}
-                                      ]
-                                  }/>
+            <CheckboxFiltersGroup title="Ингридиенты"
+                                  className="mt-5"
+                                  limit={6}
+                                  defaultItems={items.slice(0,6)}
+                                  items={items}/>
         </div>
     );
 };
