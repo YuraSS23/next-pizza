@@ -65,17 +65,32 @@ export const CheckboxFiltersGroup: React.FC<Props> = ({
             </div>}
 
             <div className="flex flex-col gap-4 max-h-96 pr-2 overflow-auto scrollbar">
-                {list.map((item, index) => (
-                    <FilterCheckbox
-                        key={index}
-                        text={item.text}
-                        value={item.value}
-                        endAdornment={item.endAdornment}
-                        checked={selected?.has(item.value)}
-                        onCheckedChange={() => onClickCheckbox?.(item.value)}
-                        name={name}
-                    />
-                ))}
+                {list.map((item, index) => {
+                    if (selected?.has(item.value)) {
+                        return <FilterCheckbox
+                            key={index}
+                            text={item.text}
+                            value={item.value}
+                            endAdornment={item.endAdornment}
+                            checked={selected?.has(item.value)}
+                            onCheckedChange={() => onClickCheckbox?.(item.value)}
+                            name={name}
+                        />
+                    }
+                })}
+                {list.map((item, index) => {
+                    if (!selected?.has(item.value)) {
+                        return <FilterCheckbox
+                            key={index}
+                            text={item.text}
+                            value={item.value}
+                            endAdornment={item.endAdornment}
+                            checked={selected?.has(item.value)}
+                            onCheckedChange={() => onClickCheckbox?.(item.value)}
+                            name={name}
+                        />
+                    }
+                })}
             </div>
             {items.length > limit && <div className={showAll ? "border-t border-t-neutral-100 mt-4" : ''}>
 
