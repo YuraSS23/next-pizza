@@ -22,6 +22,7 @@ export const Filters: React.FC<Props> = ({className}) => {
     );
 
     const updatePrices = (prices: number[]) =>{
+        debugger
         filters.setPrices('priceFrom', prices[0])
         filters.setPrices('priceTo', prices[1])
     }
@@ -31,11 +32,6 @@ export const Filters: React.FC<Props> = ({className}) => {
             <Title text="Фильтрация" size="sm" className="mb-5 font-bold"/>
 
             {/* Верхние чекбоксы */}
-            {/*<div className="flex flex-col gap-4">
-                <FilterCheckbox  name={'rwerew'} text="Можно собирать" value="1"/>
-                <FilterCheckbox  name={'erewrwrwr'} text="Новинки" value="2"/>
-            </div>*/}
-
             <CheckboxFiltersGroup
                 name={'pizzaTypes'}
                 title="Тип теста"

@@ -53,10 +53,10 @@ export const useFilters = (): ReturnProps => {
     });
 
     const updatePrice = (name: keyof PriceProps, value: number) => {
-        setPrices({
-            ...prices,
+        setPrices(prevState => ({
+            ...prevState,
             [name]: value
-        })
+        }))
     }
 
     return {
