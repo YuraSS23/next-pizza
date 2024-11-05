@@ -10,7 +10,7 @@ interface Props {
 
 export const ProductImage: React.FC<Props> = ({imgUrl, size, className}) => {
     return (
-        <div className={className}>
+        <div className={cn('flex items-center justify-center flex-1 relative w-full',className)}>
             <img
                 src={imgUrl}
                 alt="Logo"
