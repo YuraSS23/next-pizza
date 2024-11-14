@@ -1,12 +1,12 @@
 'use client'
 
-import React, {useEffect} from 'react';
+import React from 'react';
 import {cn} from "@/lib/utils";
 import {Search} from "lucide-react";
 import {useClickAway, useDebounce} from "react-use";
 import Link from "next/link";
-import {Product} from "@prisma/client";
 import {Api} from "@/services/api-client";
+import {Product} from "@prisma/client";
 
 interface Props {
     className?: string;
