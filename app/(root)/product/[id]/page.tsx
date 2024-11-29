@@ -1,8 +1,7 @@
 import React from 'react';
 import {prisma} from "@/prisma/prisma-client";
 import {notFound} from "next/navigation";
-import {Container, PizzaImage, Title} from "@/components/shared";
-import {GroupVariants} from "@/components/shared/group-variants";
+import {Container, GroupVariants, PizzaImage, Title} from "@/shared/components/shared";
 
 export default async function ProductPage({params: {id}}: { params: { id: number } }) {
     const product = await prisma.product.findFirst({where: {id: Number(id)}});
