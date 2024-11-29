@@ -1,7 +1,8 @@
 import React from 'react';
 import {cn} from "@/shared/lib/utils";
-import {PizzaImage, Title} from "@/shared/components/shared";
+import {GroupVariants, PizzaImage, Title} from "@/shared/components/shared";
 import {Button} from "@/shared/components/ui";
+import {pizzaSizes} from "@/shared/constants/pizza";
 
 interface Props {
     imageUrl: string;
@@ -29,6 +30,8 @@ export const ChoosePizzaForm: React.FC<Props> = ({
             <div className="w-[490px] bg-[f7f6f5] p-7">
                 <Title text={name} size='md' className="font-extrabold mb-1"/>
                 <p className="text-gray-400">{textDetails}</p>
+
+                <GroupVariants items={pizzaSizes} />
                 <Button className="h-[55] px-10 text-base rounded-[18px] w-full mt-10">
                     Добавить в корзину за {totalPrise} usdt
                 </Button>
