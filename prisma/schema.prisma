@@ -67,7 +67,7 @@ model ProductItem {
   productId Int
 }
 
-model Ingredient {
+model IngredientItem {
   id Int @id @default(autoincrement())
 
   name     String

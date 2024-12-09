@@ -18,8 +18,7 @@ export default async function ProductPage({params: {id}}: { params: { id: number
                 <div className="w-[490px] bg-[#F7F6F5] p-7">
                     <Title text={product.name} size="md" className="font-extrabold mb-1"/>
 
-                    <GroupVariants
-                        selectedValue='2'
+                    <GroupVariants value='2'
                         items={[
                         {
                             name: 'Маленькая',
