@@ -1,6 +1,8 @@
 import {NextRequest, NextResponse} from "next/server";
 import {prisma} from "@/prisma/prisma-client";
 
+export const dynamic = 'force-dynamic'; // Принудительно делает маршрут динамическим
+
 export async function GET(req: NextRequest) {
     try {
 
