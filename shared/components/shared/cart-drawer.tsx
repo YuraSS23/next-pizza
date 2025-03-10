@@ -25,10 +25,30 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({className,
     const fetchCartItems = useCartStore(state => state.fetchCartItems)
     const items = useCartStore(state => state.items)
     const totalAmount = useCartStore(state => state.totalAmount)
+    const updateItemQuantity = useCartStore(state => state.updateItemQuantity)
 
     React.useEffect(() => {
         fetchCartItems()
     }, []);
+
+
+    const getItemWord = (count: number) => {
+        if (count % 10 === 1 && count % 100 !== 11) {
+            return 'товар';
+        } else if (
+            (count % 10 >= 2 && count % 10 <= 4) &&
+            (count % 100 < 10 || count % 100 >= 20)
+        ) {
+            return 'товара';
+        } else {
+            return 'товаров';
+        }
+    };
+
+    const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
+        const newQuantity = type === 'plus' ? quantity+1 : quantity-1
+        updateItemQuantity(id, newQuantity)
+    }
 
 
     return (
@@ -38,7 +58,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({className,
                 <SheetContent className="flex flex-col justify-between pb-0 bg-[#F4F1EE]">
                     <SheetHeader>
                         <SheetTitle>
-                            В корзине <span className="font-bold">{items.length} товара</span>
+                            В корзине <span className="font-bold">{items.length} {getItemWord(items.length)}</span>
                         </SheetTitle>
                     </SheetHeader>
 
@@ -60,6 +80,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({className,
                                     name={item.name}
                                     price={item.price}
                                     quantity={item.quantity}
+                                    onClickCountButton={type => onClickCountButton(item.id, item.quantity, type)}
                                 />
                             ))}
                         </div>
