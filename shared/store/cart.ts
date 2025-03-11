@@ -2,7 +2,7 @@ import {create} from "zustand";
 import {Api} from "@/shared/services/api-client";
 import {getCartDetails} from "@/shared/lib";
 import {CartStateItem} from "@/shared/lib/get-cart-details";
-import {updateItemQuantity} from "@/shared/services/cart";
+import {removeCartItem, updateItemQuantity} from "@/shared/services/cart";
 
 export interface CartState {
     loading: boolean;
@@ -18,10 +18,10 @@ export interface CartState {
 
     /* Запрос на добавление товара в корзину */
     // TODO: Типизировать values
-    addCartItems: (values: any) => Promise<void>;
+    addCartItem: (values: any) => Promise<void>;
 
     /* Запрос на удаление товара из корзины */
-    removeCartItems: (id: number) => Promise<void>;
+    removeCartItem: (id: number) => Promise<void>;
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -56,7 +56,18 @@ export const useCartStore = create<CartState>((set, get) => ({
         }
     },
 
-    addCartItems: async (values: any) => {},
+    addCartItem: async (values: any) => {},
 
-    removeCartItems: async (id: number) => {},
+    removeCartItem: async (id: number) => {
+        try {
+            set({loading: true, error: false});
+            const data = await Api.cart.removeCartItem(id);
+            set(getCartDetails(data))
+        } catch (error) {
+            console.log(error);
+            set({error: true});
+        } finally {
+            set({loading: false});
+        }
+    },
 }))
