@@ -37,7 +37,8 @@ export const CartDrawerItem: React.FC<Props> = ({
 
                     <div className="flex items-center gap-3">
                         <CartItem.Price value={price}/>
-                        <Trash2Icon onClick={onClickRemove} className="text-gray-400 cursor-pointer hover:text-gray-600" size={16}/>
+                        <Trash2Icon onClick={onClickRemove} className="text-gray-400 cursor-pointer hover:text-gray-600"
+                                    size={16}/>
                     </div>
                 </div>
             </div>
