@@ -1,5 +1,4 @@
 import type {Metadata} from "next";
-import {Suspense} from "react";
 import {Header} from "@/shared/components/shared";
 
 export const metadata: Metadata = {
@@ -15,7 +14,6 @@ export default function HomeLayout({
 }>) {
     return (
         <main className={'min-h-screen'}>
-            <Suspense>
                 <div className="flex flex-col rounded-lg gap-4 overflow-hidden [@media(max-width:1300px)]:px-4">
                     {/* Header с нижним бордером на всю ширину экрана */}
                     <div className="w-full">
@@ -32,7 +30,6 @@ export default function HomeLayout({
                         )}
                     </div>
                 </div>
-            </Suspense>
         </main>
     )
         ;
