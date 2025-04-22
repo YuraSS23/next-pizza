@@ -1,5 +1,4 @@
 import {prisma} from "@/prisma/prisma-client";
-import {ProductWithRelations} from "@/@types/prisma";
 
 export interface GetSearchParams {
     query?: string;
@@ -22,33 +21,33 @@ export const findPizzas = async (params: GetSearchParams) => {
     const minPrice = Number(params.priceFrom) || DEFAULT_MIN_PRICE;
     const maxPrice = Number(params.priceTo) || DEFAULT_MAX_PRICE;
 
-    const categories= await prisma.category.findMany({
+    return prisma.category.findMany({
         include: {
             products: {
                 orderBy: {
                     id: 'desc'
                 },
                 where: {
-                  ingredients: ingredientsIdArr ? {
-                      some: {
-                          id: {
-                              in: ingredientsIdArr
-                          }
-                      }
-                  }  : undefined,
+                    ingredients: ingredientsIdArr ? {
+                        some: {
+                            id: {
+                                in: ingredientsIdArr
+                            }
+                        }
+                    } : undefined,
                     items: {
-                      some: {
-                          size: {
-                              in: sizes
-                          },
-                          pizzaType: {
-                              in: pizzaTypes,
-                          },
-                          price: {
-                              gte: minPrice,
-                              lte: maxPrice,
-                          }
-                      }
+                        some: {
+                            size: {
+                                in: sizes
+                            },
+                            pizzaType: {
+                                in: pizzaTypes,
+                            },
+                            price: {
+                                gte: minPrice,
+                                lte: maxPrice,
+                            }
+                        }
                     }
                 },
                 include: {
@@ -68,6 +67,4 @@ export const findPizzas = async (params: GetSearchParams) => {
             }
         }
     });
-
-    return categories
 }
