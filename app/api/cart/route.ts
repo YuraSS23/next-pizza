@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
 
         const data = (await req.json()) as CreateCartItemValue
 
-        const findCartItem = await prisma.cartItem.findFirst({
+        /*const findCartItem = await prisma.cartItem.findFirst({
             where: {
                 cartId: userCart.id,
                 productItemId: data.productItemId,
@@ -67,7 +67,38 @@ export async function POST(req: NextRequest) {
                     }
                 }
             },
-        })
+        })*/
+
+        const findCartItem = await prisma.cartItem.findFirst({
+            where: {
+                cartId: userCart.id,
+                productItemId: data.productItemId,
+                ingredients: {
+                    ...((data.ingredients?.length ?? 0) > 0 ? {
+                        some: {} // Убедимся что есть хотя бы один ингредиент
+                    } : {
+                        none: {} // Или нет ни одного
+                    })
+                }
+            },
+            include: {
+                ingredients: true
+            }
+        }).then(item => {
+            if (!item) return null;
+
+            // Проверяем наличие ingredients в data
+            const inputIngredients = data.ingredients ?? [];
+
+            // Вручную проверяем точное соответствие ингредиентов
+            const itemIngredientIds = item.ingredients.map(i => i.id).sort();
+            const inputIngredientIds = [...inputIngredients].sort();
+
+            if (JSON.stringify(itemIngredientIds) === JSON.stringify(inputIngredientIds)) {
+                return item;
+            }
+            return null;
+        });
 
         if (findCartItem) {
             // Если товар найден делаем +1
