@@ -33,7 +33,7 @@ export default function CheckoutPage() {
                 <WhiteBlock className="p-6 sticky top-4">
                     <div className="flex flex-col gap-1">
                         <span className="text-xl">Итого</span>
-                        <span className="text-[34px] font-extrabold">"totalPrice"</span>
+                        <span className="text-[34px] font-extrabold">totalPrice</span>
                     </div>
                     <CheckoutItemDetails title={
                         <div className="flex items-center">
