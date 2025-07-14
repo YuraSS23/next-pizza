@@ -1,6 +1,6 @@
-import {CheckoutItemDetails, Container, Title, WhiteBlock} from "@/shared/components/shared";
-import {Input, Textarea} from "@/shared/components/ui";
-import {Package, Percent, Truck} from "lucide-react";
+import {CheckoutItem, CheckoutItemDetails, Container, Title, WhiteBlock} from "@/shared/components/shared";
+import {Button, Input, Textarea} from "@/shared/components/ui";
+import {ArrowRight, Package, Percent, Truck} from "lucide-react";
 
 export default function CheckoutPage() {
     return <Container className="mt-10">
@@ -9,7 +9,23 @@ export default function CheckoutPage() {
         <div className="flex gap-10">
             {/* Левая часть*/}
             <div className="flex flex-col gap-10 flex-1 mb-20">
-                <WhiteBlock title='1. Корзина'>35534645645</WhiteBlock>
+                <WhiteBlock title='1. Корзина'>
+                    <div className="flex flex-col gap-5">
+                        <CheckoutItem id={1}
+                                      imageUrl="https://media.dodostatic.net/image/r:584x584/11EE7D61706D472F9A5D71EB94149304.webp"
+                                      details="20 см, традиционное тесто"
+                                      name="Чоризо фреш"
+                                      price={500}
+                                      quantity={10} />
+                        <CheckoutItem id={1}
+                                      imageUrl="https://media.dodostatic.net/image/r:584x584/11EE7D61706D472F9A5D71EB94149304.webp"
+                                      details="20 см, традиционное тесто"
+                                      name="Чоризо фреш"
+                                      price={500}
+                                      quantity={10} />
+                    </div>
+
+                </WhiteBlock>
 
                 <WhiteBlock title='2. Персональные данные'>
                     <div className="grid grid-cols-2 gap-5">
@@ -53,6 +69,11 @@ export default function CheckoutPage() {
                             Доставка:
                         </div>
                     } value="120 руб"/>
+
+                    <Button type="submit" className="w-full h-14 rounded-2xl mt-6 text-base font-bold">
+                        Перейти к оплате
+                        <ArrowRight className="w-5 ml-2" />
+                    </Button>
 
                 </WhiteBlock>
             </div>
